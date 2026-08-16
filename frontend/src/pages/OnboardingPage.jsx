@@ -10,7 +10,7 @@ import {
   ShuffleIcon,
 } from "lucide-react";
 import toast from "react-hot-toast";
-import { LANGUAGES } from "../constants";
+import { LANGUAGES, avatarStyles } from "../constants";
 
 const OnboardingPage = () => {
   const { authUser } = useAuthUser();
@@ -43,8 +43,12 @@ const OnboardingPage = () => {
   };
 
   const handleRandomAvatar = () => {
-    const idx = Math.floor(Math.random() * 100) + 1; //1-100 included
-    const randomAvatar = `https://avatar.iran.liara.run/public/${idx}.png`;
+    const randomStyle =
+      avatarStyles[Math.floor(Math.random() * avatarStyles.length)];
+
+    const seed = Math.random().toString(36).substring(2, 10);
+
+    const randomAvatar = `https://api.dicebear.com/10.x/${randomStyle}/svg?seed=${seed}`;
 
     setFormState({ ...formState, profilePic: randomAvatar });
     toast.success("Random profile picture generated!");

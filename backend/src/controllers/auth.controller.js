@@ -1,6 +1,7 @@
 import { upsertStreamUser } from "../lib/stream.js";
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
+import { avatarStyles } from "../constants/index.js";
 
 export async function signup(req, res) {
   const { email, password, fullName } = req.body;
@@ -29,8 +30,14 @@ export async function signup(req, res) {
         .json({ message: "Email already exists, please use a different one" });
     }
 
-    const idx = Math.floor(Math.random() * 100) + 1; //generate a num between 1-100
-    const randomAvatar = `https://avatar.iran.liara.run/public/${idx}.png`;
+    const randomStyle =
+      avatarStyles[Math.floor(Math.random() * avatarStyles.length)];
+
+    const seed = `${fullName}-${Date.now()}`;
+
+    const randomAvatar = `https://api.dicebear.com/10.x/${randomStyle}/svg?seed=${encodeURIComponent(
+      seed,
+    )}`;
 
     const newUser = await User.create({
       email,
@@ -55,7 +62,7 @@ export async function signup(req, res) {
       process.env.JWT_SECRET_KEY,
       {
         expiresIn: "7d",
-      }
+      },
     );
 
     res.cookie("jwt", token, {
@@ -145,7 +152,7 @@ export async function onboard(req, res) {
         ...req.body,
         isOnboarded: true,
       },
-      { new: true }
+      { new: true },
     );
 
     if (!updatedUser)
@@ -158,12 +165,12 @@ export async function onboard(req, res) {
         image: updatedUser.profilePic || "",
       });
       console.log(
-        `Stream user updated after onboarding for ${updatedUser.fullName}`
+        `Stream user updated after onboarding for ${updatedUser.fullName}`,
       );
     } catch (streamError) {
       console.log(
         "Error updating Stream user during onboarding: ",
-        streamError.message
+        streamError.message,
       );
     }
 

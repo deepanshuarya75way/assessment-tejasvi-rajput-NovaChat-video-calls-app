@@ -195,3 +195,28 @@ export const LANGUAGE_TO_FLAG = {
   turkish: "tr",
   dutch: "nl",
 };
+
+export const avatarStyles = [
+  "avataaars",
+  "adventurer",
+  "adventurer-neutral",
+  "big-ears",
+  "big-ears-neutral",
+  "bottts",
+  "croodles",
+  "fun-emoji",
+  "icons",
+  "identicon",
+  "initials",
+  "lorelei",
+  "micah",
+  "miniavs",
+  "notionists",
+  "open-peeps",
+  "personas",
+  "pixel-art",
+  "pixel-art-neutral",
+  "rings",
+  "shapes",
+  "thumbs",
+];
