@@ -2,6 +2,10 @@
 
 NovaChat is a full-stack chat and video-calling application built with React, Vite, Express, MongoDB, Stream Chat, and Stream Video.
 
+## Live Demo
+
+Try the deployed application: [NovaChat](https://novachat-video-calls-app.onrender.com/login)
+
 ## Features
 
 - User registration and login
